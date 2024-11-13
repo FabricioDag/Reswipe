@@ -3,6 +3,7 @@ require('dotenv').config()
 const app = require('./app') // importa o arquivo app.js
 const mongoose = require('mongoose')
 
+
 //Credentials
 const dbUser = process.env.DB_USER
 const dbPassword = process.env.DB_PASS // mover para o .env
