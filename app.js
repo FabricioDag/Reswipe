@@ -13,5 +13,6 @@ app.get("/api", (req, res) => {
 
 app.use('/auth', require('./routes/authRoutes'));
 app.use('/recipes', require('./routes/recipeRoutes'));
+app.use('/posts', require('./routes/postRoutes'));
 
 module.exports = app;

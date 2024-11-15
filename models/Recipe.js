@@ -30,3 +30,26 @@ const recipeSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Recipe', recipeSchema);
+
+/*
+const mongoose = require('mongoose');
+
+const recipeSchema = new mongoose.Schema({
+  titulo: { type: String, required: true },
+  descricao: String,
+  autor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  dataCriacao: { type: Date, default: Date.now },
+  score: { type: Number, default: 0 },
+  ingredientes: [String],
+  modoDePreparo: [String],
+  comentarios: [
+    {
+      usuarioId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      comentario: String,
+      data: { type: Date, default: Date.now },
+    },
+  ],
+});
+
+module.exports = mongoose.model('Recipe', recipeSchema);
+*/
