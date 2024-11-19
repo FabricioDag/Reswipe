@@ -1,19 +1,18 @@
 // controllers/recipeController.js
 const Recipe = require('../models/Recipe')
 
-const postRecipe = async(req, res) => {
+const createRecipe = async(req, res) => {
     
-    const{title,description,ingredients,instructions,createdBy,createdAt} = req.body
+    const { title, description, ingredients, instructions } = req.body;
 
     //create recipe
     const recipe = new Recipe({
         title,
         description,
+        author: req.user.userId, // Referência ao ID do usuário autenticado (teste)
         ingredients,
-        instructions,
-        createdBy,
-        createdAt,
-    })
+        instructions
+    });
 
     try{
 
@@ -28,7 +27,7 @@ const postRecipe = async(req, res) => {
 
 };
 
-const listRecipes = async (req, res) => {
+const getRecipes = async (req, res) => {
     try {
         // Busca todas as receitas no banco de dados
         const recipes = await Recipe.find().populate('createdBy', 'name email');
@@ -56,7 +55,7 @@ const getRecipeById = async (req, res) => {
 };
 
 module.exports = {
-    postRecipe,
-    listRecipes,
+    createRecipe,
+    getRecipes,
     getRecipeById,
 };

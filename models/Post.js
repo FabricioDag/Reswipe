@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-  autor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   content: { type: String, required: true },
   dateCreation: { type: Date, default: Date.now },
   likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   comments: [
     {
       userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-      comentario: String,
+      comment: {type: String},
       data: { type: Date, default: Date.now },
     },
   ],

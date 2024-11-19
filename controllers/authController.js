@@ -1,8 +1,8 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
-//models
-const User = require('../models/User')
+
+const User = require('../models/User') // Importa User Model
 
 const privateRoute = async (req,res)=>{
     const id = req.params.id
@@ -21,6 +21,7 @@ const privateRoute = async (req,res)=>{
 const loginUser = async(req,res)=>{
     const {email, password} =  req.body
 
+    // Simple validation on backend
     if(!email){
         return res.status(422).json({msg:'o email é obrigatório'})
     }
@@ -29,14 +30,14 @@ const loginUser = async(req,res)=>{
         return res.status(422).json({msg:'a senha é obrigatório'})
     }
 
-    // check if user exists
+    // Check if user exists
     const user = await User.findOne({email:email})
 
     if(!user){
         return res.status(404).json({msg:" email nao cadastrado"})
     }
 
-    // check se senhas coincidem
+    // Check if password equals to the user password
     const checkPassword = await bcrypt.compare(password, user.password)
 
     if(!checkPassword){
@@ -63,7 +64,7 @@ const loginUser = async(req,res)=>{
 
 const registerUser = async(req,res)=>{
 
-    const{name, email, password, confirmPassword, birthdate} = req.body
+    const{name, email, password, confirmPassword, birthDate} = req.body
 
     if(!name){
         return res.status(422).json({msg:'o nome é obrigatório'})
@@ -77,7 +78,7 @@ const registerUser = async(req,res)=>{
         return res.status(422).json({msg:'a senha é obrigatório'})
     }
 
-    if(!birthdate){
+    if(!birthDate){
         return res.status(422).json({msg:'a data é obrigatório'})
     }
 
@@ -101,7 +102,7 @@ const registerUser = async(req,res)=>{
         name,
         email,
         password: passwordHash,
-        birthdate,
+        birthDate,
     })
 
     try{

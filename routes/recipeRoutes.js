@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const ensureAuthenticated = require('../middleware/auth'); 
 
 const recipeController = require('../controllers/recipeController')
 
-router.post('/postRecipe', recipeController.postRecipe); //post Recipe
-router.get('/listRecipes',recipeController.listRecipes);
+router.post('/createRecipe',ensureAuthenticated , recipeController.createRecipe); //createRecipe somente autenticado
+router.get('/getRecipes',recipeController.getRecipes);
 router.get('/:id', recipeController.getRecipeById)
 
 

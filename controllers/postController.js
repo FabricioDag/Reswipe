@@ -4,15 +4,15 @@ const User = require('../models/User');
 // Criar novo post
 exports.createPost = async (req, res) => {
   try {
-    const { autorId, content } = req.body;
+    const { content } = req.body;
     const post = new Post({
-      autor: autorId,
+      author: req.user.userId,
       content,
     });
     await post.save();
 
     // Atualiza o usuário com o novo post
-    //const user = await User.findById(autorId);
+    //const user = await User.findById(authorId);
     //user.posts.push(post._id);
     //await user.save();
 
@@ -25,7 +25,7 @@ exports.createPost = async (req, res) => {
 // Obter todos os posts
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().populate('autor', 'nome email');
+    const posts = await Post.find().populate('author', 'nome email');
     res.json(posts);
   } catch (error) {
     res.status(500).json({ error: error.message });

@@ -1,10 +1,13 @@
 const express = require('express');
-const { createPost, getPosts, likePost, addCommentToPost } = require('../controllers/postController');
 const router = express.Router();
+const ensureAuthenticated = require('../middleware/auth'); 
 
-router.post('/', createPost);
-router.get('/', getPosts);
-router.post('/:id/like', likePost);
-router.post('/:id/comment', addCommentToPost);
+const postController = require('../controllers/postController');
+
+router.post('/', ensureAuthenticated, postController.createPost); //createPost Somente autenticado
+router.get('/', postController.getPosts);
+
+router.post('/:id/like', postController.likePost);
+router.post('/:id/comment', postController.addCommentToPost);
 
 module.exports = router;
