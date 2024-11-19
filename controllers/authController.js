@@ -63,7 +63,7 @@ const loginUser = async(req,res)=>{
 
 const registerUser = async(req,res)=>{
 
-    const{name, email, password, confirmpassword, birthdate} = req.body
+    const{name, email, password, confirmPassword, birthdate} = req.body
 
     if(!name){
         return res.status(422).json({msg:'o nome é obrigatório'})
@@ -81,7 +81,7 @@ const registerUser = async(req,res)=>{
         return res.status(422).json({msg:'a data é obrigatório'})
     }
 
-    if (password !== confirmpassword){
+    if (password !== confirmPassword){
         return res.status(422).json({msg:'As senhas nao conferem'})
     }
 

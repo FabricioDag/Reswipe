@@ -1,1 +1,8 @@
-Compreender diferenças entre Recipe.js e User.js schema e model
+# BackEnd aplicação swipe
+
+Continued development:
+ - Expandir User Model e Refatorar para Schema
+ - Expandir Recipe Model
+ - Expandir Post Model
+ - Criar Badge Model
+ - Refatorar Typescript
