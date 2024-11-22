@@ -1,22 +1,35 @@
 // controllers/recipeController.js
 const Recipe = require('../models/Recipe')
+const User = require("../models/User")
 
 const createRecipe = async(req, res) => {
     
     const { title, description, ingredients, instructions } = req.body;
 
-    //create recipe
+    // Validações básicas
+    if (!title || !description || !ingredients || !instructions) {
+        return res.status(400).json({ msg: "Todos os campos são obrigatórios." });
+    }
+
+    // Criação da receita com o ID do usuário autenticado
     const recipe = new Recipe({
         title,
         description,
-        author: req.user.userId, // Referência ao ID do usuário autenticado (teste)
         ingredients,
-        instructions
+        instructions,
+        createdBy: req.user.id, // Pegando o ID do autor do req.user
     });
 
     try{
 
-        await recipe.save()
+        const savedRecipe = await recipe.save();
+
+        // Atualiza o usuário para adicionar a receita ao array 'recipes'
+        await User.findByIdAndUpdate(
+            req.user.id, // ID do autor
+            { $push: { recipes: savedRecipe._id } }, // Adiciona a receita ao array 'recipes'
+            { new: true } // Retorna o documento atualizado
+        );
 
         res.status(201).json({msg:'Receita criada com sucesso'})
 

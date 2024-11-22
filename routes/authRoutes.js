@@ -8,4 +8,6 @@ router.get('/user/:id',ensureAuthenticated, authController.privateRoute);
 router.post('/loginUser', authController.loginUser); //loginUser
 router.post('/register', authController.registerUser); // registerUser
 
+router.get('/profile',ensureAuthenticated, authController.getProfile)
+
 module.exports = router;

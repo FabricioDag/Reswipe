@@ -117,9 +117,32 @@ const registerUser = async(req,res)=>{
     }
 }
 
+const getProfile = async(req,res)=>{
+    try {
+        const token = req.headers['authorization'].split(' ')[1];
+        const decoded = jwt.decode(token); // Decodifica o token para acessar o ID do usuário
+
+        const user = await User.findById(decoded.id); // Busca o usuário no MongoDB
+        if (!user) {
+            return res.status(404).json({ msg: 'Usuário não encontrado' });
+        }
+
+        res.json({
+            name: user.name,
+            email: user.email,
+            createdAt: user.createdAt,
+            birthDate: user.birthDate,
+            recipes: user.recipes,
+        });
+    } catch (error) {
+        res.status(500).json({ msg: 'Erro ao buscar informações do usuário' });
+    }
+}
+
 module.exports = {
     privateRoute,
     loginUser,
-    registerUser
+    registerUser,
+    getProfile
 }
 

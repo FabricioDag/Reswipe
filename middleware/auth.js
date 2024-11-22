@@ -10,6 +10,12 @@ function ensureAuthenticated(req, res, next) {
 
     try {
         const secret = process.env.SECRET;
+        const decoded = jwt.verify(token, secret);
+
+        req.user = {
+            id: decoded.id, // ID do usuário extraído do token
+        };
+
         jwt.verify(token, secret);
         next();
     } catch (error) {
