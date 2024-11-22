@@ -1,4 +1,3 @@
-// controllers/recipeController.js
 const Recipe = require('../models/Recipe')
 const User = require("../models/User")
 
